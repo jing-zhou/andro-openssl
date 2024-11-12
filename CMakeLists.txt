@@ -1,6 +1,7 @@
 cmake_minimum_required(VERSION 3.6)
 project(OpenSSL)
 
+include(CMakePrintHelpers)
 include(FetchContent)
 function(CloneRepository repositoryURL branchName projectName sourceDir)
     #Commands are left empty so that we only checkout the source and no not perform any kind of build
@@ -123,6 +124,7 @@ set(OPENSSL_NO_DEPRECATED_0_6_0 ON) # Disable deprecated features in OpenSSL 0.6
 set(OPENSSL_NO_DEPRECATED_0_5_0 ON) # Disable deprecated features in OpenSSL 0.5.0
 # ... (Add other desired options here) ...
 
+include_directories(${OPENSSL_ROOT_DIR}/include)
 # Add OpenSSL source files
 add_library(ssl STATIC
     ${OPENSSL_ROOT_DIR}/crypto/aes/aes_cbc.c
