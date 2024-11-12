@@ -1,8 +1,25 @@
 cmake_minimum_required(VERSION 3.6)
 project(OpenSSL)
 
+include(FetchContent)
+function(CloneRepository repositoryURL branchName projectName sourceDir)
+    #Commands are left empty so that we only checkout the source and no not perform any kind of build
+    message("Starting to clone ${projectName} into ${sourceDir}")
+    FetchContent_Declare(
+            "${projectName}"
+            GIT_REPOSITORY "${repositoryURL}"
+            SOURCE_DIR "${sourceDir}"
+            GIT_TAG "${branchName}"
+            CONFIGURE_COMMAND ""
+            BUILD_COMMAND ""
+            INSTALL_COMMAND ""
+    )
+    FetchContent_MakeAvailable(${projectName})
+endfunction(CloneRepository)
+CloneRepository("https://github.com/jing-zhou/openssl.git" "openssl-3.4.0" "OpenSSL" "${CMAKE_SOURCE_DIR}/openssl")
+
 # Set the OpenSSL root directory
-set(OPENSSL_ROOT_DIR ${CMAKE_CURRENT_SOURCE_DIR})
+set(OPENSSL_ROOT_DIR "${CMAKE_SOURCE_DIR}/openssl")
 
 # Set the target architecture (e.g., arm64-v8a, armeabi-v7a, x86, x86_64)
 set(ANDROID_ABI "arm64-v8a")
@@ -15,7 +32,7 @@ set(CMAKE_TOOLCHAIN_FILE ${ANDROID_NDK}/build/cmake/android.toolchain.cmake)
 
 # Set the target platform
 set(CMAKE_SYSTEM_NAME Android)
-set(CMAKE_SYSTEM_VERSION 21) # Adjust as needed
+set(CMAKE_SYSTEM_VERSION 30) # Adjust as needed
 
 # Configure OpenSSL build options
 set(OPENSSL_NO_ASM ON) # Disable assembly optimizations
@@ -108,26 +125,26 @@ set(OPENSSL_NO_DEPRECATED_0_5_0 ON) # Disable deprecated features in OpenSSL 0.5
 
 # Add OpenSSL source files
 add_library(ssl STATIC
-    crypto/aes/aes_cbc.c
-    crypto/aes/aes_cfb.c
-    crypto/aes/aes_core.c
-    crypto/aes/aes_ecb.c
-    crypto/aes/aes_ige.c
-    crypto/aes/aes_misc.c
-    crypto/aes/aes_ofb.c
-    crypto/aes/aes_wrap.c
+    ${OPENSSL_ROOT_DIR}/crypto/aes/aes_cbc.c
+    ${OPENSSL_ROOT_DIR}/crypto/aes/aes_cfb.c
+    ${OPENSSL_ROOT_DIR}/crypto/aes/aes_core.c
+    ${OPENSSL_ROOT_DIR}/crypto/aes/aes_ecb.c
+    ${OPENSSL_ROOT_DIR}/crypto/aes/aes_ige.c
+    ${OPENSSL_ROOT_DIR}/crypto/aes/aes_misc.c
+    ${OPENSSL_ROOT_DIR}/crypto/aes/aes_ofb.c
+    ${OPENSSL_ROOT_DIR}/crypto/aes/aes_wrap.c
     # ... (Add all other necessary source files) ...
 )
 
 add_library(crypto STATIC
-    crypto/aes/aes_cbc.c
-    crypto/aes/aes_cfb.c
-    crypto/aes/aes_core.c
-    crypto/aes/aes_ecb.c
-    crypto/aes/aes_ige.c
-    crypto/aes/aes_misc.c
-    crypto/aes/aes_ofb.c
-    crypto/aes/aes_wrap.c
+    ${OPENSSL_ROOT_DIR}/crypto/aes/aes_cbc.c
+    ${OPENSSL_ROOT_DIR}/crypto/aes/aes_cfb.c
+    ${OPENSSL_ROOT_DIR}/crypto/aes/aes_core.c
+    ${OPENSSL_ROOT_DIR}/crypto/aes/aes_ecb.c
+    ${OPENSSL_ROOT_DIR}/crypto/aes/aes_ige.c
+    ${OPENSSL_ROOT_DIR}/crypto/aes/aes_misc.c
+    ${OPENSSL_ROOT_DIR}/crypto/aes/aes_ofb.c
+    ${OPENSSL_ROOT_DIR}/crypto/aes/aes_wrap.c
     # ... (Add all other necessary source files) ...
 )
 
