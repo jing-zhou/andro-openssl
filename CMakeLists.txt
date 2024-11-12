@@ -1,23 +1,4 @@
-cmake
 cmake_minimum_required(VERSION 3.4.1)
-
-include(FetchContent)
-function(CloneRepository repositoryURL branchName projectName sourceDir)
-    #Commands are left empty so that we only checkout the source and no not perform any kind of build
-    message("Starting to clone ${projectName} into ${sourceDir}")
-    FetchContent_Declare(
-            "${projectName}"
-            GIT_REPOSITORY "${repositoryURL}"
-            SOURCE_DIR "${sourceDir}"
-            GIT_TAG "origin/${branchName}"
-            CONFIGURE_COMMAND ""
-            BUILD_COMMAND ""
-            INSTALL_COMMAND ""
-    )
-    FetchContent_MakeAvailable(${projectName})
-endfunction(CloneRepository)
-CloneRepository("https://github.com/jing-zhou/trojan.git" "igniter" "trojan" "${CMAKE_CURRENT_LIST_DIR}/trojan")
-
 project(OpenSSL)
 
 # Set the OpenSSL root directory
@@ -27,7 +8,7 @@ set(OPENSSL_ROOT_DIR ${CMAKE_CURRENT_SOURCE_DIR})
 set(ANDROID_ABI "arm64-v8a")
 
 # Set the Android NDK path
-set(ANDROID_NDK "/path/to/your/ndk")
+set(ANDROID_NDK "${ANDROID_NDK_ROOT}")
 
 # Set the toolchain file
 set(CMAKE_TOOLCHAIN_FILE ${ANDROID_NDK}/build/cmake/android.toolchain.cmake)
