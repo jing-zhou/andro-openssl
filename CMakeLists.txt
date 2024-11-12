@@ -28,6 +28,9 @@ set(ANDROID_ABI "arm64-v8a")
 # Set the Android NDK path
 set(ANDROID_NDK "${ANDROID_NDK_ROOT}")
 
+# set install prefix
+set(CMAKE_INSTALL_PREFIX "${CMAKE_SOURCE_DIR}/install")
+
 # Set the toolchain file
 set(CMAKE_TOOLCHAIN_FILE ${ANDROID_NDK}/build/cmake/android.toolchain.cmake)
 
