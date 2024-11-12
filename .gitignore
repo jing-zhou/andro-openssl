@@ -1,1 +1,8 @@
 /build
+/openssl
+/_deps
+/CMakeFiles
+CMakeCache.txt
+cmake_install.cmake
+Makefile
+
