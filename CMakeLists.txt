@@ -163,5 +163,8 @@ install(TARGETS ssl crypto
     LIBRARY DESTINATION lib/openssl/${ANDROID_ABI}
 )
 
-install(FILES ${OPENSSL_ROOT_DIR}/include/internal/deprecated.h DESTINATION include/openssl
+install(FILES 
+    ${OPENSSL_ROOT_DIR}/include/internal/deprecated.h 
+    ${OPENSSL_ROOT_DIR}/include/openssl/opensslv.h.in 
+    DESTINATION include/openssl
 )
