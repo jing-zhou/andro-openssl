@@ -161,6 +161,7 @@ target_include_directories(crypto PUBLIC ${OPENSSL_ROOT_DIR}/include)
 install(TARGETS ssl crypto
     ARCHIVE DESTINATION lib/openssl/${ANDROID_ABI}
     LIBRARY DESTINATION lib/openssl/${ANDROID_ABI}
-    PUBLIC_HEADER
-          DESTINATION include/openssl
+)
+
+install(FILES ${OPENSSL_ROOT_DIR}/include/internal/deprecated.h DESTINATION include/openssl
 )
