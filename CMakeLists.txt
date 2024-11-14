@@ -154,11 +154,13 @@ add_library(crypto STATIC
 )
 
 # Set target properties
-target_include_directories(ssl PUBLIC include)
-target_include_directories(crypto PUBLIC include)
+target_include_directories(ssl PUBLIC ${OPENSSL_ROOT_DIR}/include)
+target_include_directories(crypto PUBLIC ${OPENSSL_ROOT_DIR}/include)
 
 # Install OpenSSL libraries
 install(TARGETS ssl crypto
-    ARCHIVE DESTINATION lib/${ANDROID_ABI}
-    LIBRARY DESTINATION lib/${ANDROID_ABI}
+    ARCHIVE DESTINATION lib/openssl/${ANDROID_ABI}
+    LIBRARY DESTINATION lib/openssl/${ANDROID_ABI}
+    PUBLIC_HEADER
+          DESTINATION include/openssl
 )
