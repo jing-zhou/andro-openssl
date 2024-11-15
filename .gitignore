@@ -1,6 +1,5 @@
 /build
-/openssl
-/_deps
+/openssl-download
 /CMakeFiles
 /.vscode
 /install
@@ -9,6 +8,4 @@ CMakeCache.txt
 cmake_install.cmake
 Makefile
 install_manifest.txt
-libcrypto.a
-libssl.a
 
