@@ -5,16 +5,25 @@ project(AndroidOpenSSL)
 include(CMakePrintHelpers)
 include(ExternalProject)
 
-ExternalProject_Add(
-    openssl
-    URL https://www.openssl.org/source/openssl-3.4.0.tar.gz
-    PREFIX ${CMAKE_BINARY_DIR}/openssl-download
-    CONFIGURE_COMMAND ""
-    BUILD_COMMAND ""
-    INSTALL_COMMAND ""
-)
+include(FetchContent)
+function(CloneRepository repositoryURL branchName projectName sourceDir)
+    #Commands are left empty so that we only checkout the source and no not perform any kind of build
+    message("Starting to clone ${projectName} into ${sourceDir}")
+    FetchContent_Declare(
+            "${projectName}"
+            GIT_REPOSITORY "${repositoryURL}"
+            SOURCE_DIR "${sourceDir}"
+            GIT_TAG "${branchName}"
+            CONFIGURE_COMMAND ""
+            BUILD_COMMAND ""
+            INSTALL_COMMAND ""
+    )
+    FetchContent_MakeAvailable(${projectName})
+endfunction(CloneRepository)
+CloneRepository("https://github.com/jing-zhou/openssl.git" "openssl-3.4.0" "OpenSSL" "${CMAKE_SOURCE_DIR}/openssl")
 
-set(OPENSSL_SOURCE_DIR ${CMAKE_SOURCE_DIR}/openssl-download)
+
+set(OPENSSL_SOURCE_DIR ${CMAKE_SOURCE_DIR}/openssl)
 set(OPENSSL_BUILD_DIR ${CMAKE_BINARY_DIR}/openssl-build)
 
 # set install prefix
