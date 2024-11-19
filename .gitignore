@@ -1,8 +1,9 @@
-/build
-/openssl-download
-/CMakeFiles
-/.vscode
-/install
+.vscode/
+_deps/
+install/
+build/
+openssl/
+CMakeFiles/
 
 CMakeCache.txt
 cmake_install.cmake
